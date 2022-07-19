@@ -19,6 +19,7 @@ void exibe(node *LISTA);
 void libera(node *LISTA);
 void contador(node *LISTA);
 void exibeinverso(node *LISTA);
+void encontravalores(node *LISTA);
 
 
 int main(void)
@@ -34,7 +35,7 @@ int main(void)
 	do{
 		opt=menu();
 		opcao(LISTA,opt);
-	}while(opt!=8);
+	}while(opt!=9);
 
 	free(LISTA);
 	return 0;
@@ -59,7 +60,8 @@ int menu(void)
 	printf("5. Zerar lista\n");
 	printf("6. Contar Elementos\n");
 	printf("7. Exibir Lista Inversa\n");
-    printf("8. Sair\n");
+	printf("8. Encontrar\n");
+    printf("9. Sair\n");
 	printf("Opcao: "); scanf("%d", &opt);
 	
 	return opt;
@@ -103,9 +105,12 @@ void opcao(node *LISTA, int op)
 			printf("\n");
             break;
 		case 8:
+			encontravalores(LISTA);
+			printf("\n");
+			break;
+		case 9:
 
 			break;
-
 		default:
 			printf("Comando invalido\n\n");
 	}
@@ -221,24 +226,31 @@ void libera(node *LISTA)
 
 void contador(node *LISTA)	//Exercicio 1 lista 2
 {
-    int cont;
+    int cont = 0;
     node *ptr;
     ptr = LISTA->prox;
+
+	if(vazia(LISTA)){
+		printf("Lista vazia!\n\n");
+		return ;
+	}
 
     while(ptr != NULL){
        cont++;
        ptr = ptr->prox;  
     }
     if( cont == 0){
-        printf("Nao ha elementos na lista");
+        printf("Nao ha elementos na lista\n");
     }
     else{
-        printf("Numero de elementos: %d", cont);
+        printf("Numero de elementos: %d\n", cont);
     }
+	
 }
 
 void exibeinverso(node *LISTA)		//Exercicio 2 lista 2
 {	
+
 	if(LISTA == NULL){
 		return;
 	}
@@ -247,4 +259,36 @@ void exibeinverso(node *LISTA)		//Exercicio 2 lista 2
 	if(LISTA->num != NULL){
 		printf("  %d", LISTA->num);
 	}
+}
+
+void encontravalores(node *LISTA)
+{
+	if(vazia(LISTA)){
+		printf("Lista vazia!\n\n");
+		return ;
+	}
+	
+	node *tmp;
+	tmp = LISTA->prox;
+	int maior = tmp->num;
+	int menor = tmp->num;
+	int soma;
+
+	
+	
+	while( tmp->prox != NULL){
+		tmp = tmp->prox;
+		if(tmp->num > maior){
+			maior = tmp->num;
+		}
+		if(tmp->num < menor){
+			menor = tmp->num;
+		}
+
+	}
+
+	printf("Maior: %d \n", maior);
+	printf("Menor: %d \n", menor);
+
+	printf("\n\n");
 }
