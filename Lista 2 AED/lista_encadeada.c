@@ -20,6 +20,7 @@ void libera(node *LISTA);
 int contador(node *LISTA);
 void exibeinverso(node *LISTA);
 void encontravalores(node *LISTA);
+void encontradois(node *LISTA);
 
 
 int main(void)
@@ -35,7 +36,7 @@ int main(void)
 	do{
 		opt=menu();
 		opcao(LISTA,opt);
-	}while(opt!=9);
+	}while(opt!=10);
 
 	free(LISTA);
 	return 0;
@@ -44,7 +45,7 @@ int main(void)
 void inicia(node *LISTA)
 {
 	LISTA->prox = NULL;
-	LISTA->num = NULL;
+	LISTA->num = NULL;		//A funcao encontra valores nao funciona sem definir essa variavel como NULL
 }
 
 int menu(void)
@@ -61,7 +62,8 @@ int menu(void)
 	printf("6. Contar Elementos\n");
 	printf("7. Exibir Lista Inversa\n");
 	printf("8. Encontrar\n");
-    printf("9. Sair\n");
+	printf("9. Encontrar dois maiores numero\n");
+    printf("10. Sair\n");
 	printf("Opcao: "); scanf("%d", &opt);
 	
 	return opt;
@@ -109,6 +111,9 @@ void opcao(node *LISTA, int op)
 			printf("\n");
 			break;
 		case 9:
+			encontradois(LISTA);	
+			break;
+		case 10:
 
 			break;
 		default:
@@ -302,4 +307,26 @@ void encontravalores(node *LISTA)	//Exercicio 3 lista 2
 
 
 	
+}
+
+void encontradois(node *LISTA){		//Exercicio 4 lista 2
+
+	node *tmp;
+	tmp = LISTA->prox;
+	int maior = tmp->num;
+	int smaior = tmp->num;
+
+	while( tmp->prox != NULL){
+		tmp = tmp->prox;
+		if(tmp->num > maior){
+			maior = tmp->num;
+		}
+		if(tmp->num > smaior && tmp->num < maior){
+			smaior = tmp->num;
+		}
+	}
+
+	printf("Maior numero: %d\n", maior);
+	printf("Segundo maior numero: %d\n", smaior);
+
 }
