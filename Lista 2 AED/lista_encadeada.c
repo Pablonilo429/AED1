@@ -17,7 +17,7 @@ node * busca (node *LISTA, int x, node ** ant);
 int retirar(node *LISTA, int x);
 void exibe(node *LISTA);
 void libera(node *LISTA);
-void contador(node *LISTA);
+int contador(node *LISTA);
 void exibeinverso(node *LISTA);
 void encontravalores(node *LISTA);
 
@@ -98,7 +98,7 @@ void opcao(node *LISTA, int op)
 			break;
 			
 	    case 6:
-			contador(LISTA);
+			printf("Numero de elementos: %d\n", contador(LISTA));;
 			break;
 		case 7:
 			exibeinverso(LISTA);
@@ -224,7 +224,7 @@ void libera(node *LISTA)
 	}
 }
 
-void contador(node *LISTA)	//Exercicio 1 lista 2
+int contador(node *LISTA)	//Exercicio 1 lista 2
 {
     int cont = 0;
     node *ptr;
@@ -235,17 +235,16 @@ void contador(node *LISTA)	//Exercicio 1 lista 2
 		return ;
 	}
 
-    while(ptr != NULL){
+    while(ptr != NULL){			//Segue a mesma logica da funcao busca, porem percorre toda lista ate achar NULL no apontador
        cont++;
        ptr = ptr->prox;  
     }
     if( cont == 0){
         printf("Nao ha elementos na lista\n");
     }
-    else{
-        printf("Numero de elementos: %d\n", cont);
-    }
+   
 	
+	return cont;
 }
 
 void exibeinverso(node *LISTA)		//Exercicio 2 lista 2
@@ -255,13 +254,13 @@ void exibeinverso(node *LISTA)		//Exercicio 2 lista 2
 		return;
 	}
 	
-	exibeinverso(LISTA->prox);
-	if(LISTA->num != NULL){
+	exibeinverso(LISTA->prox);		
+	if(LISTA->num != NULL){		
 		printf("  %d", LISTA->num);
 	}
 }
 
-void encontravalores(node *LISTA)
+void encontravalores(node *LISTA)	//Exercicio 3 lista 2
 {
 	if(vazia(LISTA)){
 		printf("Lista vazia!\n\n");
@@ -270,25 +269,37 @@ void encontravalores(node *LISTA)
 	
 	node *tmp;
 	tmp = LISTA->prox;
+	int soma = tmp->num;	//SEM ESSA DECLARACAO O SOMADOR NAO FUNCIONA
 	int maior = tmp->num;
 	int menor = tmp->num;
-	int soma;
-
+	float media;
 	
+
 	
 	while( tmp->prox != NULL){
 		tmp = tmp->prox;
-		if(tmp->num > maior){
+		if(tmp->num > maior){	//Acha o maior numero da lista
 			maior = tmp->num;
 		}
-		if(tmp->num < menor){
+		if(tmp->num < menor){	//Acha o menor numero da lista
 			menor = tmp->num;
 		}
 
+		soma = soma + tmp->num;	//Soma dos elementos da lista
 	}
+	
+
+
+	
+	media = (float)soma/contador(LISTA); //Acessa a funcao contador para encontrar o numero de elementos
 
 	printf("Maior: %d \n", maior);
 	printf("Menor: %d \n", menor);
+	printf("Media: %.1f \n", media);
 
 	printf("\n\n");
+
+
+
+	
 }
