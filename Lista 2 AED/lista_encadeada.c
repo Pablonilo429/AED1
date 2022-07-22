@@ -1,3 +1,7 @@
+//Codigo feito pelo professor da UFRRJ Marcelo Dib Cruz
+//funcao contador, exibeinverso, encontravalores e encontradois foi feito por Pablo de Oliveira Araujo Xavier
+
+
 #include <stdio.h>
 #include <stdlib.h>
 
