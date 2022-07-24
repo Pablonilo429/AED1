@@ -46,8 +46,8 @@ int main(void)
 	do{
 		opt=menu();
 		opcao(LISTA,LISTA1,opt);
-	}while(opt!=10);
-
+	}while(opt!=12);
+	
 	free(LISTA);
 	return 0;
 }
