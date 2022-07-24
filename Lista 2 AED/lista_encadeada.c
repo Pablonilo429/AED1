@@ -12,8 +12,9 @@ struct Node{
 typedef struct Node node;
 
 void inicia(node *LISTA);
+void inicia(node *LISTA1);
 int menu(void);
-void opcao(node *LISTA, int op);
+void opcao(node *LISTA, node *LISTA1, int op);
 node *criaNo();
 void insereFim(node *LISTA, int x);
 void insereInicio(node *LISTA, int x);
@@ -25,21 +26,26 @@ int contador(node *LISTA);
 void exibeinverso(node *LISTA);
 void encontravalores(node *LISTA);
 void encontradois(node *LISTA);
+int maior(node *LISTA);
+void ordenalista(node *LISTA, node *LISTA1);
+void invertelista(node *LISTA, node *LISTA1);
+void exibe(node *LISTA1);
 
 
 int main(void)
 {
 	node *LISTA = (node *) malloc(sizeof(node));
+	node *LISTA1 = (node *) malloc(sizeof(node));
 	if(!LISTA){
 		printf("Sem memoria disponivel!\n");
 		exit(1);
 	}
-	inicia(LISTA);
+	inicia(LISTA); inicia(LISTA1);
 	int opt;
 	
 	do{
 		opt=menu();
-		opcao(LISTA,opt);
+		opcao(LISTA,LISTA1,opt);
 	}while(opt!=10);
 
 	free(LISTA);
@@ -66,14 +72,16 @@ int menu(void)
 	printf("6. Contar Elementos\n");
 	printf("7. Exibir Lista Inversa\n");
 	printf("8. Encontrar\n");
-	printf("9. Encontrar dois maiores numero\n");
-    printf("10. Sair\n");
+	printf("9. Encontrar Dois Maiores Numeros\n");
+	printf("10. Ordenar Lista\n");
+	printf("11. Criar e Exibir Lista Inversa\n");
+    printf("12. Sair\n");
 	printf("Opcao: "); scanf("%d", &opt);
 	
 	return opt;
 }
 
-void opcao(node *LISTA, int op)
+void opcao(node *LISTA, node *LISTA1, int op)
 {   int x ;
 	switch(op){	
 			
@@ -118,7 +126,12 @@ void opcao(node *LISTA, int op)
 			encontradois(LISTA);	
 			break;
 		case 10:
-
+			ordenalista(LISTA, LISTA1);
+			break;
+		case 11:
+			invertelista(LISTA, LISTA1);
+			exibe(LISTA1);
+			printf("\n");
 			break;
 		default:
 			printf("Comando invalido\n\n");
@@ -204,7 +217,7 @@ int retirar(node *LISTA, int x)
 void exibe(node *LISTA)
 {
 	if(vazia(LISTA)){
-		printf("Lista vazia!\n\n");
+		
 		return ;
 	}
 	
@@ -268,6 +281,18 @@ void exibeinverso(node *LISTA)		//Exercicio 2 lista 2
 		printf("  %d", LISTA->num);
 	}
 }
+int maior(node *LISTA){		//Complemento para o exercicio 3 e 5
+	node *tmp;
+	tmp = LISTA;
+	int maior = tmp->num;
+	while( tmp->prox != NULL){
+		tmp = tmp->prox;
+		if(tmp->num > maior){	//Acha o maior numero da lista
+			maior = tmp->num;
+		}
+	}
+	return maior;
+}
 
 void encontravalores(node *LISTA)	//Exercicio 3 lista 2
 {
@@ -279,7 +304,6 @@ void encontravalores(node *LISTA)	//Exercicio 3 lista 2
 	node *tmp;
 	tmp = LISTA->prox;
 	int soma = tmp->num;	//SEM ESSA DECLARACAO O SOMADOR NAO FUNCIONA
-	int maior = tmp->num;
 	int menor = tmp->num;
 	float media;
 	
@@ -287,9 +311,6 @@ void encontravalores(node *LISTA)	//Exercicio 3 lista 2
 	
 	while( tmp->prox != NULL){
 		tmp = tmp->prox;
-		if(tmp->num > maior){	//Acha o maior numero da lista
-			maior = tmp->num;
-		}
 		if(tmp->num < menor){	//Acha o menor numero da lista
 			menor = tmp->num;
 		}
@@ -302,7 +323,7 @@ void encontravalores(node *LISTA)	//Exercicio 3 lista 2
 	
 	media = (float)soma/contador(LISTA); //Acessa a funcao contador para encontrar o numero de elementos
 
-	printf("Maior: %d \n", maior);
+	printf("Maior: %d \n", maior(LISTA));
 	printf("Menor: %d \n", menor);
 	printf("Media: %.1f \n", media);
 
@@ -333,4 +354,32 @@ void encontradois(node *LISTA){		//Exercicio 4 lista 2
 	printf("Maior numero: %d\n", maior);
 	printf("Segundo maior numero: %d\n", smaior);
 
+}
+
+void ordenalista(node *LISTA, node *LISTA1){	//Exercicio 5 lista 2
+	int m = -1;
+
+	if(vazia(LISTA)){
+		printf("Lista vazia\n");
+	}
+
+	while(!vazia(LISTA)){
+	  	m = maior(LISTA);
+		insereInicio(LISTA1,m);
+		retirar(LISTA, m);			 	
+	}
+	exibe(LISTA1);
+}
+
+void invertelista(node *LISTA, node *LISTA1)		//Exercicio 6 lista 2
+{	
+
+	if(LISTA == NULL){
+		return;
+	}
+	
+	exibeinverso(LISTA->prox);		
+	if(LISTA->num != NULL){		
+		LISTA1 = LISTA;
+	}
 }
