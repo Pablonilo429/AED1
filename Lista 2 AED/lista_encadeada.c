@@ -1,5 +1,5 @@
 //Codigo feito pelo professor da UFRRJ Marcelo Dib Cruz
-//funcao contador, exibeinverso, encontravalores e encontradois foi feito por Pablo de Oliveira Araujo Xavier
+//As funcoes contador, exibeinverso, encontravalores, encontradois, maior, ordenalista e invertelista foram feitas por Pablo de Oliveira Araujo Xavier
 
 
 #include <stdio.h>
