@@ -167,63 +167,138 @@ void print(int vet[], int array_size){
 }
 
 void sortarray_one(){
-   
-    printf("Ordenando um vetor de tamanho 1000\n");
-   
     int vet[1000];
-    
-    mistura(vet, 1000);
-    bubble_sort(vet,1000);
-    mistura(vet, 1000);
-    selection_sort(vet,1000);
-    mistura(vet, 1000);
-    insertion_sort(vet, 1000);
-    mistura(vet, 1000);
-    shell_sort(vet, 1000);
-    mistura(vet, 1000);
-    quick_sort(vet, 1000);
+    int opt = 0;
+    printf("\nOrdenando um vetor de tamanho 1000\n\n");
+    while(opt != 6){
+        opt = menu_algorithms();
+        switch (opt)
+        {
+        case 1:
+            mistura(vet, 1000);
+            bubble_sort(vet,1000);
+            sortarray_one();
+            break;
+        case 2:
+            mistura(vet, 1000);
+            selection_sort(vet,1000);
+            sortarray_one();
+        case 3:
+            mistura(vet, 1000);
+            insertion_sort(vet, 1000);
+            sortarray_one();
+            break;
+        case 4:
+            mistura(vet, 1000);
+            shell_sort(vet, 1000);
+            sortarray_one();
+            break;
+        case 5:
+            mistura(vet, 1000);
+            quick_sort(vet, 1000);
+            sortarray_one();
+            break;
+        case 6:
+            main();
+        default:
+            printf("Comando Invalido \n");
+            sortarray_one();
+            break;
+        }
+    }
+   
 
 }
 
 void sortarray_two(){
    
-    printf("Ordenando um vetor de tamanho 10000\n");
-   
+    printf("\nOrdenando um vetor de tamanho 10000\n");
+    int opt = 0;
     int vet[10000];
     
-    
-    mistura(vet, 10000);
-    bubble_sort(vet,10000);
-    mistura(vet, 10000);
-    selection_sort(vet,10000);
-    mistura(vet, 10000);
-    insertion_sort(vet, 10000);
-    mistura(vet, 10000);
-    shell_sort(vet, 10000);
-    mistura(vet, 10000);
-    quick_sort(vet, 10000);
+    while(opt != 6){
+        opt = menu_algorithms();
+        switch (opt)
+        {
+        case 1:
+            mistura(vet, 10000);
+            bubble_sort(vet,10000);
+            sortarray_two();
+            break;
+        case 2:
+            mistura(vet, 1000);
+            selection_sort(vet,10000);
+            sortarray_two();
+        case 3:
+            mistura(vet, 1000);
+            insertion_sort(vet, 10000);
+            sortarray_two();
+            break;
+        case 4:
+            mistura(vet, 10000);
+            shell_sort(vet, 10000);
+            sortarray_two();
+            break;
+        case 5:
+            mistura(vet, 10000);
+            quick_sort(vet, 10000);
+            sortarray_two();
+            break;
+        case 6:
+            main();
+        default:
+            printf("Comando Invalido \n");
+            sortarray_two();
+            break;
+        }
+    }
 
 }
 
 void sortarray_three(){
-    printf("Ordenando um vetor de tamanho 100000\n");
+    printf("\nOrdenando um vetor de tamanho 100000\n");
    
     int vet[100000];
+    int opt = 0;
     
-    mistura(vet, 100000);
-    bubble_sort(vet,100000);
-    mistura(vet, 100000);
-    selection_sort(vet,100000);
-    mistura(vet, 100000);
-    insertion_sort(vet, 100000); 	
-    mistura(vet, 100000);
-    shell_sort(vet, 100000);
-    mistura(vet, 100000);
-    quick_sort(vet, 100000);
+    while(opt != 6){
+        opt = menu_algorithms();
+        switch (opt)
+        {
+        case 1:
+            mistura(vet, 10000);
+            bubble_sort(vet,10000);
+            sortarray_three();
+            break;
+        case 2:
+            mistura(vet, 1000);
+            selection_sort(vet,10000);
+            sortarray_three();
+        case 3:
+            mistura(vet, 1000);
+            insertion_sort(vet, 10000);
+            sortarray_three();
+            break;
+        case 4:
+            mistura(vet, 10000);
+            shell_sort(vet, 10000);
+            sortarray_three();
+            break;
+        case 5:
+            mistura(vet, 10000);
+            quick_sort(vet, 10000);
+            sortarray_three();
+            break;
+        case 6:
+            main();
+        default:
+            printf("Comando Invalido \n");
+            sortarray_three();
+            break;
+        }
+    }
 
 }
-
-
 
 void options(int op){
     switch (op)
@@ -244,6 +319,7 @@ void options(int op){
     case 4:
         printf("Byeee ;)");
         sleep(1);
+        exit(1);
         break;
     default:
         printf("Comando invalido\n\n");
@@ -260,14 +336,31 @@ int menu(void)
 	printf("|   2 - Ver o tempo de ordenacao no vetor de tamanho 10000  |\n");
     printf("|   3 - Ver o tempo de ordenacao no vetor de tamanho 100000 |\n");
     printf("|   4 - Sair                                                 |\n");
-    printf("--------------------------------------------------------------\n");
+    printf("--------------------------------------------------------------\n\n");
     printf("Opcao: "); scanf("%d", &opt);
     
 	
 	return opt;
 }
 
-
+int menu_algorithms(void)
+{
+	int opt;
+	
+    printf("-------------------------------------\n");
+	printf("|   Escolha a opcao:            |\n");
+	printf("|   1 - Bubblesort              |\n");
+	printf("|   2 - Selectsort              |\n");
+    printf("|   3 - Insertsort              |\n");
+    printf("|   4 - Shellsort               |\n");
+    printf("|   5 - Quicksort               |\n");
+    printf("|   6 - Voltar ao menu inicial  |\n");
+    printf("-------------------------------------\n\n");
+    printf("Opcao: "); scanf("%d", &opt);
+    
+	
+	return opt;
+}
 
 void main()
 {
