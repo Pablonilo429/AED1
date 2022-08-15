@@ -332,9 +332,9 @@ int menu(void)
 	
     printf("--------------------------------------------------------------\n");
 	printf("|   Escolha a opcao:                                         |\n");
-	printf("|   1 - Ver o tempo de ordenacao no vetor de tamanho 1000   |\n");
-	printf("|   2 - Ver o tempo de ordenacao no vetor de tamanho 10000  |\n");
-    printf("|   3 - Ver o tempo de ordenacao no vetor de tamanho 100000 |\n");
+	printf("|   1 - Ver o tempo de ordenacao no vetor de tamanho 1000    |\n");
+	printf("|   2 - Ver o tempo de ordenacao no vetor de tamanho 10000   |\n");
+    printf("|   3 - Ver o tempo de ordenacao no vetor de tamanho 100000  |\n");
     printf("|   4 - Sair                                                 |\n");
     printf("--------------------------------------------------------------\n\n");
     printf("Opcao: "); scanf("%d", &opt);
