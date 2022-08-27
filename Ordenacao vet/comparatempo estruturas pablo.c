@@ -69,7 +69,6 @@ no *insercao(no *pt, int x)
 
   if (f == 1)
   {
-    printf("inserao Invalida");
     return (NULL);
   }
   else
@@ -165,169 +164,201 @@ void misturavet(int vet[], int n)
       scanf("%d",&num);
       vet[i] = num;
     }
-    vet[i] = rand();
-
+    else{
+      vet[i] = rand();
+    }
   }
   time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
 
   printf("O algoritmo inseriu %d elementos em: %fs\n", n, time_spent);
 }
 
-void misturaarvore(no *pt, int n){
-  int i;
-  int num;
-  int elem;
+
+double sortarray(int vet[])
+{
+  double time_total = 0.0;
   double time_spent = 0.0;
-  double time_spent2 = 0.0;
-  clock_t begin = clock();
-  clock_t end;
+  double time_spent3 = 0.0;
+  clock_t begin_t;
+  clock_t end_t;
   clock_t begin2;
   clock_t end2;
-
-  srand(time(NULL));
-
-  for(i = 0; i < n; i++){
-    elem = rand(); 
-    if(i == n-1){
-      printf("Insira um numero para realizar o teste de busca posteriormente\n");
-      begin2 = clock();
-      scanf("%d", &elem);
-      end2 = clock();
-      if (pt == NULL){
-      pt = insercao(pt, elem);
-      }
-      else{
-      insercao(pt, elem);
-      }
-    }
-    else if (pt == NULL){
-      pt = insercao(pt, elem);
-    }
-    else{
-      insercao(pt, elem);
-    }
-    
-  }
-  end = clock();
-  time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
-  time_spent2 += (double)(end2 - begin2) / CLOCKS_PER_SEC;
-  printf("O algoritmo inseriu %d elementos em: %fs\n", n, time_spent2-time_spent);
-
-}
-
-void sortarray(int vet[])
-{
+  clock_t begin3;
+  clock_t end3;
 
   printf("-----VETOR-----\n");
 
   int n;
   int num;
-  int busca;
-  double time_spent = 0.0;
-  
+  int resultado;
+  int i;
+
   printf("Entre com o tamanho do vetor: \n");
   scanf("%d", &n);
-
+  begin_t = clock();
+  begin3 = clock();
   misturavet(vet, n);
+  end3 = clock();
   quicksort(vet, n);
   printf("Entre com o valor digitado anteriormente para realizar as buscas\n");
+  begin2 = clock();
   scanf("%d",&num);
-  busca = buscasequencial(vet, n, num);
-  if(busca == -1){
+  end2 = clock();
+  resultado = buscasequencial(vet, n, num);
+  if(resultado == -1){
     printf("Elemento nao encontrado\n");
   }
   else{
-    printf("Valor: %d\n", busca);
+    printf("Posicao do elemento no array: %d\n", resultado);
   }
-  clock_t begin = clock();
-  busca = buscabinaria(vet, 0, n-1, num);
-  clock_t end = clock();
-  if(busca == -1){
+  resultado = buscabinaria(vet, num, 0, n-1);
+  if(resultado == -1){
     printf("Elemento nao encontrado\n");
   }
   else{
-    printf("Valor: %d\n", busca);
+    printf("Posicao do elemento no array: %d\n", resultado);
   }
-  time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
-  printf("O algoritmo busca binaria realizou a busca em: %fs\n",time_spent);
+  end_t = clock();
+  time_spent3 += (double)(end3 - begin3) / CLOCKS_PER_SEC;
+  time_spent += (double)(end2 - begin2) / CLOCKS_PER_SEC;
+  time_total += (double)(end_t - begin_t) / CLOCKS_PER_SEC;
+
+  return (time_total-time_spent-time_spent3);
 
 }
 
-void arvorebin(no *pt){
-  no *aux;
-  int n;
+
+double arvorebin(no *pt){
+  printf("-----ARVORE-----\n");
   int elem;
+  int i; 
+  int n;
   int f;
   double time_spent = 0.0;
+  double time_spent2 = 0.0;
+  double time_total = 0.0;
+  clock_t begin_t;
+  clock_t end_t;
+  clock_t begin;
+  clock_t end;
+  clock_t begin2;
+  clock_t end2;
+  no *aux;
 
-  printf("-----ARVORE-----\n");
-
-  printf("Entre com o numero de elementos da arvore: \n");
+  
+  printf("Entre com a quanitadade desejada de elementos da arvore(Ate 1 bilhao)\n");
   scanf("%d", &n);
-  misturaarvore(pt, n);
-  printf("Entre com o valor digitado anteriormente para realizar as buscas\n");
-  scanf("%d", &elem);
-  clock_t begin = clock();
+
+  srand(time(NULL));
+
+  printf("\n Elemento:");
+  begin_t = clock();
+  
+  begin = clock();
+  for(i = 0; i < n; i++){
+    if( i == n-1){
+      printf("Entre com o elemento para ser buscado posteriormente\n");
+      begin2 = clock();
+      scanf("%d", &elem);
+      end2 = clock();
+    }
+    else{
+      elem = rand();
+    }
+    if (pt == NULL){
+      pt = insercao(pt, elem);
+    }
+    else{
+      insercao(pt, elem);
+    }
+  }
+  end = clock();
+  time_spent2 += (double)(end2 - begin2) / CLOCKS_PER_SEC;
+  time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Tempo de insercacao na ABB: %f\n", time_spent-time_spent2);
+  time_spent = 0.0;
+  printf("\n Elemento:");
+  begin = clock();
   aux = busca_arvore(pt, elem, &f);
-  clock_t end = clock();
-  if (f == 1){
-    printf("%d f=  %d ELEMENTO ENCONTRADO !!!\n", aux->info, f);
-  }
-  else{
-    printf("ELEMENTO NAO ENCONTRADO !!!\n");
-  }
-  time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
-  printf("O algoritmo realizou a busca em: %fs\n",time_spent);
+    if (f == 1){
+      printf("\v %d f=  %d ELEMENTO ENCONTRADO !!! ", aux->info, f);
+    }
+    else{
+      printf("\n ELEMENTO NAO ENCONTRADO !!!");
+    }
+  end = clock();
+  printf("Tempo de busca na ABB: %f\n", time_spent);
+  end_t = clock();
+
+  time_total += (double)(end_t - begin_t) / CLOCKS_PER_SEC;
+
+  return (time_total-time_spent2);
+
+  // if (pt != NULL){
+  //   pre_ordem(pt);
+  // }
+  // else{
+  //   printf("\n ARVORE VAZIA !!! ");
+  // }    
 }
 
 
-int buscasequencial(int vet[], int size, int val)
+int buscasequencial(int a[], int n, int val)
 {
   double time_spent = 0.0;
   clock_t begin = clock();
-  
-
-  for (int i = 0; i < size; i++){
-    if (vet[i] == val){
+  clock_t end;
+  for (int i = 0; i < n; i++){    
+    if (a[i] == val){
+      end = clock();
+      time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+      printf("Tempo no algoritmo de busca sequencial: %f\n", time_spent);
       return i;
-    }
-  
-  return -1;
+    }  
+    
   }
-  clock_t end = clock();
+  end = clock();
   time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Tempo no algoritmo de busca sequencial: %f\n", time_spent);  
+  return -1;  
+}  
 
-  printf("O algoritmo busca sequencial realizou a busca em: %fs\n",time_spent);
-}
 
 
 
-int buscabinaria(int a[], int beg, int end, int val)
+int buscabinaria(int array[], int x, int low, int high)
 {
   double time_spent = 0.0;
   clock_t begin = clock();
+  clock_t end;
 
-  int mid;
-  if (end >= beg)
-  {
-    mid = (beg + end) / 2;
-    if (a[mid] == val)
-    {
-      return mid + 1;
+
+  while (low <= high) {
+    int mid = low + (high - low) / 2;
+
+    if (array[mid] == x){
+      end = clock();
+      time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+      printf("Tempo no algoritmo de busca sequencial: %f\n", time_spent);
+      return mid;
     }
-    
-    else if(a[mid] < val)
-    {
-    return buscabinaria(a, mid+1, end, val);
+
+    if (array[mid] < x){
+      low = mid + 1;
     }
-    
-    else
-    {
-    return buscabinaria(a, beg, mid - 1, val);
+    else{
+      high = mid - 1;
     }
   }
+  end = clock();
+  time_spent += (double)(end - begin) / CLOCKS_PER_SEC;
+  printf("Tempo no algoritmo de busca sequencial: %f\n", time_spent);
   return -1;
 }
+
+  
+
+
 
 void main()
 {
@@ -336,24 +367,26 @@ void main()
   int opt;
   int *vet;
   vet = (long int *)malloc(MAX * sizeof(long int));
+  double tempo1 = 0.0, tempo2 = 0.0;
 
   while(opt != 2){
     printf("--------------------------------------------------------------\n");
     printf("|   Escolha a opcao:                                         |\n");
-    printf("|   1 - Inserir tamanho(ate um milhao)                       |\n");
+    printf("|   1 - Inserir tamanho(ate 1 bilhao)                        |\n");
     printf("|   2 - Sair                                                 |\n");
     printf("--------------------------------------------------------------\n\n");
+    printf("AVISO ------- SO COLOQUE 1 BILHAO SE VC CONFIA NO SEU PROCESSADOR ------- AVISO\n");
     printf("Opcao: ");
     scanf("%d", &opt);
 
     switch (opt)
     {
     case 1:
-      sortarray(vet);
-      arvorebin(raiz);
-
-
+      tempo1 = sortarray(vet);
+      tempo2 = arvorebin(raiz);
       printf("\n\n");
+      printf("Tempo no vetor: %f\n", tempo1);
+      printf("Tempo na ABB: %f\n\n", tempo2);
       break;
     case 2:
       printf("See ya ;)");
